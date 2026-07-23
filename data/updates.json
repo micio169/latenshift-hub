@@ -1,0 +1,16 @@
+{
+  "releases": [
+    {
+      "version": "v1.0.0",
+      "fileId": "",
+      "date": "2026-07-23",
+      "patchNotes": {
+        "ko": "• Latenshift 최초 정식 버전 출시\n• 시스템 지연 시간(Latency) 최적화 알고리즘 탑재\n• 실시간 백그라운드 프로세스 관리 기능 제공",
+        "en": "• Initial official release of Latenshift\n• Latency optimization engine integrated\n• Real-time background process management",
+        "ja": "• Latenshift 初の正式リリース\n• システムレイテンシ最適化アルゴリズム搭載\n• リアルタイムバックグラウンドプロセス管理機能",
+        "zh-CN": "• Latenshift 首次正式发布\n• 内置系统延迟优化算法\n• 提供实时后台进程管理功能",
+        "zh-TW": "• Latenshift 首次正式發佈\n• 內建系統延遲優化演算法\n• 提供實時背景程序管理功能"
+      }
+    }
+  ]
+}
