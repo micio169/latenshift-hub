@@ -1,0 +1,329 @@
+<!--
+=============================================================================
+* Copyright (c) 2026 micio. All rights reserved.
+*
+* This website and its content are protected by copyright law.
+* Unauthorized copying, distribution, or modification is strictly prohibited.
+=============================================================================
+-->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latenshift - Optimization Suite</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="wrapper">
+    <!-- 상단 네비게이션 & 언어 변경 -->
+    <div class="navbar">
+        <div class="brand">⚡ LATEN<span>SHIFT</span></div>
+        <select id="langSelect" class="lang-select">
+            <option value="ko">한국어</option>
+            <option value="en">English</option>
+            <option value="ja">日本語</option>
+            <option value="zh-CN">简体中文</option>
+            <option value="zh-TW">繁體中文</option>
+        </select>
+    </div>
+
+    <!-- 앱 히어로 소개 섹션 -->
+    <div class="hero-card">
+        <h1 class="hero-title" id="t-heroTitle">시스템 성능을 극대화하세요</h1>
+        <p class="hero-desc" id="t-heroDesc">
+            Latenshift는 백그라운드 지연 시간(Latency) 감소, 핑(Ping) 안정화, 메모리 최적화를 원클릭으로 수행하는 최첨단 시스템 최적화 프로그램입니다.
+        </p>
+
+        <div class="features-grid">
+            <div class="feature-item">
+                <div class="feature-title" id="t-f1Title">⚡ 초저지연 패킷 관리</div>
+                <div class="feature-desc" id="t-f1Desc">네트워크 패킷 큐를 실시간 재정렬하여 게임 및 앱 응답 속도 향상</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-title" id="t-f2Title">🧹 메모리 세이프 릴리즈</div>
+                <div class="feature-desc" id="t-f2Desc">불필요한 캐시 메모리를 안전하게 정리하여 프레임 드랍 예방</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-title" id="t-f3Title">🛡️ 무설치 단일 파일</div>
+                <div class="feature-desc" id="t-f3Desc">레지스트리를 오염시키지 않는 포터블 형태의 깨끗한 실행 환경</div>
+            </div>
+        </div>
+
+        <div class="download-cta">
+            <div>
+                <span class="version-badge" id="latestBadge">LATEST</span>
+                <div style="font-weight:700; font-size:18px;" id="latestVersionText">v1.0.0</div>
+            </div>
+            <a id="mainDownloadBtn" href="#" class="btn-download disabled">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span id="t-btnDownload">최신 버전 다운로드</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- 패치 노트 섹션 -->
+    <div class="section-title">📌 <span id="t-patchNotesTitle">최신 패치 노트</span></div>
+    <div class="patch-card">
+        <div class="patch-header">
+            <span class="patch-ver" id="patchVerText">-</span>
+            <span class="patch-date" id="patchDateText">-</span>
+        </div>
+        <div class="patch-content" id="patchContentText">불러오는 중...</div>
+    </div>
+
+    <!-- 아카이브 섹션 -->
+    <div class="section-title">📂 <span id="t-archiveTitle">이전 버전 아카이브</span></div>
+    <div class="archive-list" id="archiveContainer">
+        <!-- 아카이브 항목들이 JS로 동적 삽입됩니다 -->
+    </div>
+
+    <!-- GM 제어판 -->
+    <div class="gm-section">
+        <button class="gm-toggle" id="gmToggleBtn">Copyright (c) 2026 micio. All rights reserved.</button>
+        <div class="gm-box" id="gmBox">
+            <div id="gmLoginForm">
+                <div class="form-group">
+                    <label>GM Password</label>
+                    <input type="password" id="gmPasswordInput" class="input-field" placeholder="••••••••">
+                </div>
+                <button class="btn-submit" id="gmLoginBtn">Authenticate GM</button>
+            </div>
+
+            <div id="gmDeployForm" style="display:none;">
+                <div class="form-group">
+                    <label>Version Name (e.g. v1.1.0)</label>
+                    <input type="text" id="deployVer" class="input-field">
+                </div>
+                <div class="form-group">
+                    <label>Google Drive File ID / URL</label>
+                    <input type="text" id="deployFileId" class="input-field">
+                </div>
+                <div class="form-group">
+                    <label>Patch Notes (Korean)</label>
+                    <textarea id="pnKo" class="textarea-field"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Patch Notes (English)</label>
+                    <textarea id="pnEn" class="textarea-field"></textarea>
+                </div>
+                <button class="btn-submit" id="gmDeployBtn">Publish New Version</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// 5개 국어 딕셔너리
+const i18n = {
+    ko: {
+        heroTitle: "시스템 성능을 극대화하세요",
+        heroDesc: "Latenshift는 백그라운드 지연 시간(Latency) 감소, 핑(Ping) 안정화, 메모리 최적화를 원클릭으로 수행하는 최첨단 시스템 최적화 프로그램입니다.",
+        f1Title: "⚡ 초저지연 패킷 관리",
+        f1Desc: "네트워크 패킷 큐를 실시간 재정렬하여 게임 및 앱 응답 속도 향상",
+        f2Title: "🧹 메모리 세이프 릴리즈",
+        f2Desc: "불필요한 캐시 메모리를 안전하게 정리하여 프레임 드랍 예방",
+        f3Title: "🛡️ 무설치 단일 파일",
+        f3Desc: "레지스트리를 오염시키지 않는 포터블 형태의 깨끗한 실행 환경",
+        btnDownload: "최신 버전 다운로드",
+        patchNotesTitle: "최신 패치 노트",
+        archiveTitle: "이전 버전 아카이브",
+        noNotes: "등록된 패치 노트가 없습니다.",
+        download: "다운로드"
+    },
+    en: {
+        heroTitle: "Maximize System Performance",
+        heroDesc: "Latenshift is a cutting-edge optimization suite that reduces background latency, stabilizes ping, and optimizes memory with a single click.",
+        f1Title: "⚡ Ultra Low Latency",
+        f1Desc: "Reorders network packet queues in real time for faster response times.",
+        f2Title: "🧹 Memory Safe Release",
+        f2Desc: "Cleans cache memory safely to prevent frame drops in games.",
+        f3Title: "🛡️ Standalone Portable",
+        f3Desc: "Clean execution environment that leaves no registry clutter.",
+        btnDownload: "Download Latest Version",
+        patchNotesTitle: "Latest Release Notes",
+        archiveTitle: "Previous Version Archive",
+        noNotes: "No patch notes available.",
+        download: "Download"
+    },
+    ja: {
+        heroTitle: "システムパフォーマンスを最大化",
+        heroDesc: "Latenshiftは、ワンクリックでレイテンシ削減、Ping安定化、メモリ最適化を行う最先端のシステム最適化ツールです。",
+        f1Title: "⚡ 超低遅延パケット管理",
+        f1Desc: "ネットワークパケットをリアルタイムで最適化し、応答速度を向上。",
+        f2Title: "🧹 メモリセーフク린",
+        f2Desc: "不要なキャッシュメモリを安全に解放し、フレームドロップを防止。",
+        f3Title: "🛡️ ポータブル設計",
+        f3Desc: "レジストリを汚さないクリーンな単一実行ファイル。",
+        btnDownload: "最新バージョンをダウンロード",
+        patchNotesTitle: "最新のパッチノート",
+        archiveTitle: "過去バージョンアーカイブ",
+        noNotes: "パッチノートはありません。",
+        download: "ダウンロード"
+    },
+    "zh-CN": {
+        heroTitle: "最大化您的系统性能",
+        heroDesc: "Latenshift 是一款先进的系统优化套件，一键降低后台延迟、稳定 Ping 值并优化内存占用。",
+        f1Title: "⚡ 超低延迟数据包管理",
+        f1Desc: "实时重排网络数据包队列，显著提升游戏与应用响应速度。",
+        f2Title: "🧹 安全内存清理",
+        f2Desc: "安全清理无用缓存，有效防止游戏帧率骤降。",
+        f3Title: "🛡️ 便携单文件",
+        f3Desc: "无需安装，不残留注册表冗余，极简干净。",
+        btnDownload: "下载最新版本",
+        patchNotesTitle: "最新更新日志",
+        archiveTitle: "历史版本归档",
+        noNotes: "暂无更新日志。",
+        download: "下载"
+    },
+    "zh-TW": {
+        heroTitle: "極致提升您的系統效能",
+        heroDesc: "Latenshift 是一款先進的系統優化軟體，一鍵降低背景延遲、穩定 Ping 值並優化記憶體佔用。",
+        f1Title: "⚡ 超低延遲封包管理",
+        f1Desc: "實時重排網路封包隊列，顯著提升遊戲與應用回應速度。",
+        f2Title: "🧹 安全記憶體清理",
+        f2Desc: "安全清理無用快取，有效防止遊戲幀率下降。",
+        f3Title: "🛡️ 免安裝可攜式",
+        f3Desc: "無需安裝，不殘留註冊表雜訊，純淨高效。",
+        btnDownload: "下載最新版本",
+        patchNotesTitle: "最新更新記錄",
+        archiveTitle: "歷史版本歸檔",
+        noNotes: "暫無更新記錄。",
+        download: "下載"
+    }
+};
+
+let currentLang = 'ko';
+let globalReleases = [];
+
+// UI 언어 업데이트 함수
+function updateLanguage(lang) {
+    currentLang = lang;
+    const dict = i18n[lang] || i18n.ko;
+
+    document.getElementById('t-heroTitle').innerText = dict.heroTitle;
+    document.getElementById('t-heroDesc').innerText = dict.heroDesc;
+    document.getElementById('t-f1Title').innerText = dict.f1Title;
+    document.getElementById('t-f1Desc').innerText = dict.f1Desc;
+    document.getElementById('t-f2Title').innerText = dict.f2Title;
+    document.getElementById('t-f2Desc').innerText = dict.f2Desc;
+    document.getElementById('t-f3Title').innerText = dict.f3Title;
+    document.getElementById('t-f3Desc').innerText = dict.f3Desc;
+    document.getElementById('t-btnDownload').innerText = dict.btnDownload;
+    document.getElementById('t-patchNotesTitle').innerText = dict.patchNotesTitle;
+    document.getElementById('t-archiveTitle').innerText = dict.archiveTitle;
+
+    renderReleases();
+}
+
+async function fetchInfo() {
+    const res = await fetch('/api/info');
+    const data = await res.json();
+    globalReleases = data.releases || [];
+
+    if (data.isGm) {
+        document.getElementById('gmBox').classList.add('active');
+        document.getElementById('gmLoginForm').style.display = 'none';
+        document.getElementById('gmDeployForm').style.display = 'block';
+    }
+
+    renderReleases();
+}
+
+function renderReleases() {
+    if (globalReleases.length === 0) return;
+
+    const latest = globalReleases[0];
+    const dict = i18n[currentLang] || i18n.ko;
+
+    // 히어로 섹션 다운로드 버튼 설정
+    document.getElementById('latestVersionText').innerText = latest.version;
+    const mainBtn = document.getElementById('mainDownloadBtn');
+    if (latest.fileId) {
+        mainBtn.href = `/download/${latest.fileId}`;
+        mainBtn.classList.remove('disabled');
+    }
+
+    // 최신 패치 노트 렌더링
+    document.getElementById('patchVerText').innerText = latest.version;
+    document.getElementById('patchDateText').innerText = latest.date;
+    const notes = (latest.patchNotes && latest.patchNotes[currentLang]) 
+                || (latest.patchNotes && latest.patchNotes.en) 
+                || dict.noNotes;
+    document.getElementById('patchContentText').innerText = notes;
+
+    // 이전 버전 아카이브 렌더링 (최신 버전 제외한 이전 버전들)
+    const archiveContainer = document.getElementById('archiveContainer');
+    archiveContainer.innerHTML = '';
+
+    const archiveItems = globalReleases.slice(1);
+    if (archiveItems.length === 0) {
+        archiveContainer.innerHTML = `<div style="color:var(--text-sub); font-size:13px;">No archived releases yet.</div>`;
+        return;
+    }
+
+    archiveItems.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'archive-item';
+        div.innerHTML = `
+            <div class="archive-info">
+                <span class="archive-ver">${item.version}</span>
+                <span class="archive-date">${item.date}</span>
+            </div>
+            <a href="/download/${item.fileId}" class="btn-archive-dl">${dict.download}</a>
+        `;
+        archiveContainer.appendChild(div);
+    });
+}
+
+// 이벤트 리스너들
+document.getElementById('langSelect').addEventListener('change', (e) => {
+    updateLanguage(e.target.value);
+});
+
+document.getElementById('gmToggleBtn').addEventListener('click', () => {
+    document.getElementById('gmBox').classList.toggle('active');
+});
+
+document.getElementById('gmLoginBtn').addEventListener('click', async () => {
+    const password = document.getElementById('gmPasswordInput').value;
+    const res = await fetch('/api/gm/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+    });
+    if ((await res.json()).success) {
+        location.reload();
+    } else {
+        alert('Invalid password');
+    }
+});
+
+document.getElementById('gmDeployBtn').addEventListener('click', async () => {
+    const version = document.getElementById('deployVer').value;
+    const fileId = document.getElementById('deployFileId').value;
+    const pnKo = document.getElementById('pnKo').value;
+    const pnEn = document.getElementById('pnEn').value;
+
+    const res = await fetch('/api/gm/deploy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            version,
+            fileId,
+            patchNotes: { ko: pnKo, en: pnEn }
+        })
+    });
+
+    if ((await res.json()).success) {
+        alert('Successfully published!');
+        location.reload();
+    }
+});
+
+fetchInfo();
+</script>
+</body>
+</html>

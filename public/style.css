@@ -1,0 +1,351 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bg-dark: #07090e;
+    --card-bg: rgba(15, 18, 28, 0.75);
+    --card-border: rgba(255, 255, 255, 0.08);
+    --primary-blue: #3b82f6;
+    --primary-gradient: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+    --text-main: #f8fafc;
+    --text-sub: #94a3b8;
+    --accent-green: #10b981;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    min-height: 100vh;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, rgba(0,0,0,0) 70%);
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 860px;
+    position: relative;
+    z-index: 10;
+}
+
+/* 상단 언어 선택바 */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.brand {
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.brand span {
+    color: var(--primary-blue);
+}
+
+.lang-select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--card-border);
+    color: var(--text-main);
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+}
+
+.lang-select option {
+    background: #111420;
+    color: #fff;
+}
+
+/* 히어로 메인 카드 */
+.hero-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    padding: 40px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    margin-bottom: 24px;
+}
+
+.hero-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+}
+
+.hero-desc {
+    color: var(--text-sub);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.feature-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 16px;
+    padding: 18px;
+}
+
+.feature-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: var(--primary-blue);
+}
+
+.feature-desc {
+    font-size: 13px;
+    color: var(--text-sub);
+    line-height: 1.4;
+}
+
+/* 메인 다운로드 버튼 */
+.download-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--card-border);
+    padding: 20px 24px;
+    border-radius: 18px;
+}
+
+.version-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--accent-green);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 8px;
+    margin-bottom: 4px;
+}
+
+.btn-download {
+    padding: 14px 28px;
+    background: var(--primary-gradient);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-download:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(59, 130, 246, 0.4);
+}
+
+.btn-download.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* 섹션 타이틀 */
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 32px 0 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* 패치 노트 카드 */
+.patch-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 24px;
+    backdrop-filter: blur(20px);
+}
+
+.patch-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.patch-ver {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.patch-date {
+    font-size: 13px;
+    color: var(--text-sub);
+}
+
+.patch-content {
+    font-size: 14px;
+    color: #cbd5e1;
+    white-space: pre-line;
+    line-height: 1.7;
+}
+
+/* 이전 버전 아카이브 테이블 */
+.archive-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.archive-item {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.archive-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.archive-ver {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.archive-date {
+    font-size: 13px;
+    color: var(--text-sub);
+}
+
+.btn-archive-dl {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.btn-archive-dl:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* GM 제어판 */
+.gm-section {
+    margin-top: 50px;
+    border-top: 1px dashed var(--card-border);
+    padding-top: 24px;
+    text-align: center;
+}
+
+.gm-toggle {
+    background: none;
+    border: none;
+    color: var(--text-sub);
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.gm-box {
+    display: none;
+    margin-top: 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 24px;
+    border-radius: 16px;
+    text-align: left;
+}
+
+.gm-box.active {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 12px;
+    color: var(--text-sub);
+    margin-bottom: 4px;
+}
+
+.input-field, .textarea-field {
+    width: 100%;
+    padding: 10px;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 13px;
+    outline: none;
+}
+
+.textarea-field {
+    height: 70px;
+    resize: vertical;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background: var(--accent-green);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}

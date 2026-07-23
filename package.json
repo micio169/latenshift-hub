@@ -1,0 +1,13 @@
+{
+  "name": "latenshift-hub",
+  "version": "1.2.0",
+  "description": "Latenshift Optimization Suite Official Download & Archive Hub",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "express-session": "^1.18.0"
+  }
+}
