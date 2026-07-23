@@ -2,7 +2,7 @@
   "releases": [
     {
       "version": "v1.0.0",
-      "fileId": "",
+      "fileId": "1j3_d8xxELxyenx3upm9Nxk123FZagaTY",
       "date": "2026-07-23",
       "patchNotes": {
         "ko": "• Latenshift 최초 정식 버전 출시\n• 시스템 지연 시간(Latency) 최적화 알고리즘 탑재\n• 실시간 백그라운드 프로세스 관리 기능 제공",
